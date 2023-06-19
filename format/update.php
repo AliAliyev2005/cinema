@@ -2,30 +2,24 @@
 header('Content-Type: application/json');
 require_once "../conn.php";
 
-$language = json_decode(file_get_contents('php://input'));
+$format = json_decode(file_get_contents('php://input'));
 $response = new stdClass();
 
-if (empty($language->name)) {
+if (empty($format->name)) {
     $response->code = 100;
     $response->message = "Name is required";
     die(json_encode($response));
 }
 
-if (empty($language->id)) {
+if (empty($format->id)) {
     $response->code = 100;
     $response->message = "id is required";
     die(json_encode($response));
 }
 
-if (empty($language->code)) {
-    $response->code = 100;
-    $response->message = "Code is required";
-    die(json_encode($response));
-}
-
-$sql = "UPDATE languages SET `name` = ?, code = ?  WHERE id = ?;";
+$sql = "UPDATE formats SET `name` = ? WHERE id = ?;";
 $query = $conn->prepare($sql);
-$query->bind_param("sss", $language->name, $language->code, $language->id);
+$query->bind_param("ss", $format->name, $format->id);
 
 if ($query->execute() === TRUE) {
     $response->code = 0;
