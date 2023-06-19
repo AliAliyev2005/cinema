@@ -13,7 +13,7 @@ if (empty($language->name)) {
 
 if (empty($language->id)) {
     $response->code = 100;
-    $response->message = "id is required";
+    $response->message = "Id is required";
     die(json_encode($response));
 }
 
@@ -23,9 +23,9 @@ if (empty($language->code)) {
     die(json_encode($response));
 }
 
-$sql = "UPDATE languages SET `name` = ?, code = ?  WHERE id = ?;";
+$sql = "UPDATE languages SET `name` = ?, `code` = ?  WHERE `id` = ?;";
 $query = $conn->prepare($sql);
-$query->bind_param("sss", $language->name, $language->code, $language->id);
+$query->bind_param("ssi", $language->name, $language->code, $language->id);
 
 if ($query->execute() === TRUE) {
     $response->code = 0;

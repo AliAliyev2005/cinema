@@ -5,21 +5,15 @@ require_once "../conn.php";
 $subtitle = json_decode(file_get_contents('php://input'));
 $response = new stdClass();
 
-if (empty($subtitle->name)) {
+if (empty($subtitle->id)) {
     $response->code = 100;
-    $response->message = "Name is required";
+    $response->message = "Id is required";
     die(json_encode($response));
 }
 
-if (empty($subtitle->code)) {
-    $response->code = 100;
-    $response->message = "Code is required";
-    die(json_encode($response));
-}
-
-$sql = "DELETE FROM `subtitles` WHERE code = ?";
+$sql = "DELETE FROM `subtitles` WHERE `id` = ?";
 $query = $conn->prepare($sql);
-$query->bind_param("s", $subtitle->code);
+$query->bind_param("i", $subtitle->id);
 
 if ($query->execute() === TRUE) {
     $response->code = 0;

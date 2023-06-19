@@ -13,13 +13,13 @@ if (empty($format->name)) {
 
 if (empty($format->id)) {
     $response->code = 100;
-    $response->message = "id is required";
+    $response->message = "Id is required";
     die(json_encode($response));
 }
 
-$sql = "UPDATE formats SET `name` = ? WHERE id = ?;";
+$sql = "UPDATE formats SET `name` = ? WHERE `id` = ?;";
 $query = $conn->prepare($sql);
-$query->bind_param("ss", $format->name, $format->id);
+$query->bind_param("si", $format->name, $format->id);
 
 if ($query->execute() === TRUE) {
     $response->code = 0;

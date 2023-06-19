@@ -13,7 +13,7 @@ if (empty($subtitle->name)) {
 
 if (empty($subtitle->id)) {
     $response->code = 100;
-    $response->message = "id is required";
+    $response->message = "Id is required";
     die(json_encode($response));
 }
 
@@ -23,9 +23,9 @@ if (empty($subtitle->code)) {
     die(json_encode($response));
 }
 
-$sql = "UPDATE subtitles SET `name` = ?, code = ?  WHERE id = ?";
+$sql = "UPDATE subtitles SET `name` = ?, `code` = ?  WHERE `id` = ?";
 $query = $conn->prepare($sql);
-$query->bind_param("sss", $subtitle->name, $subtitle->code, $language->id);
+$query->bind_param("ssi", $subtitle->name, $subtitle->code, $language->id);
 
 if ($query->execute() === TRUE) {
     $response->code = 0;

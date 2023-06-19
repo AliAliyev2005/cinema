@@ -5,15 +5,15 @@ require_once "../conn.php";
 $format = json_decode(file_get_contents('php://input'));
 $response = new stdClass();
 
-if (empty($format->name)) {
+if (empty($format->id)) {
     $response->code = 100;
-    $response->message = "Name is required";
+    $response->message = "Id is required";
     die(json_encode($response));
 }
 
-$sql = "DELETE FROM `formats` WHERE `name` = ?";
+$sql = "DELETE FROM `formats` WHERE `id` = ?";
 $query = $conn->prepare($sql);
-$query->bind_param("s", $format->name);
+$query->bind_param("i", $format->id);
 
 if ($query->execute() === TRUE) {
     $response->code = 0;

@@ -11,10 +11,9 @@ if (empty($language->id)) {
     die(json_encode($response));
 }
 
-
-$sql = "DELETE FROM `languages` WHERE id = ?";
+$sql = "DELETE FROM `languages` WHERE `id` = ?";
 $query = $conn->prepare($sql);
-$query->bind_param("s", $language->id);
+$query->bind_param("i", $language->id);
 
 if ($query->execute() === TRUE) {
     $response->code = 0;

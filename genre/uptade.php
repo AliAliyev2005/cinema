@@ -13,13 +13,13 @@ if (empty($genre->name)) {
 
 if (empty($genre->id)) {
     $response->code = 100;
-    $response->message = "id is required";
+    $response->message = "Id is required";
     die(json_encode($response));
 }
 
-$sql = "UPDATE genres SET `name` = ? WHERE id = ?;";
+$sql = "UPDATE genres SET `name` = ? WHERE `id` = ?;";
 $query = $conn->prepare($sql);
-$query->bind_param("ss", $genre->name, $genre->id);
+$query->bind_param("si", $genre->name, $genre->id);
 
 if ($query->execute() === TRUE) {
     $response->code = 0;
