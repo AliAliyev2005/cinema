@@ -18,17 +18,17 @@ $sql = "SELECT
             f.name format_name
         FROM movies m
 
-        JOIN movie_language ml ON ml.movie_id = m.id
-        JOIN languages l ON ml.language_id = l.id
+        LEFT JOIN movie_language ml ON ml.movie_id = m.id
+        LEFT JOIN languages l ON ml.language_id = l.id
 
-        JOIN movie_genre mg ON mg.movie_id = m.id
-        JOIN genres g ON mg.genre_id = g.id
+        LEFT JOIN movie_genre mg ON mg.movie_id = m.id
+        LEFT JOIN genres g ON mg.genre_id = g.id
         
-        JOIN movie_format mf ON mf.movie_id = m.id
-        JOIN formats f ON mf.format_id = f.id
+        LEFT JOIN movie_format mf ON mf.movie_id = m.id
+        LEFT JOIN formats f ON mf.format_id = f.id
         
-        JOIN movie_subtitle ms ON ms.movie_id = m.id
-        JOIN subtitles s ON ms.subtitle_id = s.id
+        LEFT JOIN movie_subtitle ms ON ms.movie_id = m.id
+        LEFT JOIN subtitles s ON ms.subtitle_id = s.id
 ";
 $movies = $conn->query($sql)->fetch_all(MYSQLI_ASSOC);
 
