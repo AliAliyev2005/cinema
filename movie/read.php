@@ -44,24 +44,33 @@ foreach ($movies as $movie) {
     $result[$id]['country'] = $movie['country'];
     $result[$id]['director'] = $movie['director'];
     $result[$id]['duration'] = $movie['duration'];
-    $result[$id]['languages'] [$movie['language_id']]= (object)array(
-        "id" => $movie['language_id'],
-        "name" => $movie['language_name'],
-        "code" => $movie['language_code']
-    );
-    $result[$id]['genres'] [$movie['genre_id']]= (object)array(
-        "id" => $movie['genre_id'],
-        "name" => $movie['genre_name'],
-    );
-    $result[$id]['formats'] [$movie['format_id']]= (object)array(
-        "id" => $movie['format_id'],
-        "name" => $movie['format_name'],
-    );
-    $result[$id]['subtitles'] [$movie['subtitle_id']]= (object)array(
-        "id" => $movie['subtitle_id'],
-        "name" => $movie['subtitle_name'],
-        "code" => $movie['subtitle_code']
-    );
+    
+    if (isset($movie['language_id'])) {
+        $result[$id]['languages'] [$movie['language_id']]= (object)array(
+            "id" => $movie['language_id'],
+            "name" => $movie['language_name'],
+            "code" => $movie['language_code']
+        );
+    }
+    if (isset($movie['genre_id'])) {
+        $result[$id]['genres'] [$movie['genre_id']]= (object)array(
+            "id" => $movie['genre_id'],
+            "name" => $movie['genre_name'],
+        );
+    }
+    if (isset($movie['format_id'])) {
+        $result[$id]['formats'] [$movie['format_id']]= (object)array(
+            "id" => $movie['format_id'],
+            "name" => $movie['format_name'],
+        );
+    }
+    if (isset($movie['subtitle_id'])) {
+        $result[$id]['subtitles'] [$movie['subtitle_id']]= (object)array(
+            "id" => $movie['subtitle_id'],
+            "name" => $movie['subtitle_name'],
+            "code" => $movie['subtitle_code']
+        );
+    }
 }
 
 $response->code = 0;
