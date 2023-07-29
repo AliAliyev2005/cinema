@@ -14,7 +14,7 @@ if (empty($movie->name)) {
 // Insert Movie
 $sql = "INSERT INTO `movies` (`name`, `description`, `poster`, `trailer`, `age_limit`, `country`, `director`, `duration`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 $query = $conn->prepare($sql);
-$query->bind_param("ssssissi", $movie->name, $movie->description, $movie->poster, $movie->trailer, $movie->ageLimit, $movie->country, $movie->director, $movie->duration);
+$query->bind_param("ssssissi", $movie->name, $movie->description, $movie->poster, $movie->trailer, $movie->age_limit, $movie->country, $movie->director, $movie->duration);
 $query->execute();
 $movie_id = $query->insert_id;
 

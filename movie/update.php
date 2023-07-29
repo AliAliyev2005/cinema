@@ -72,7 +72,7 @@ $query->bind_param("i", $movie->id);
 $query->execute();
 
 // Insert new subtitles
-$ids = array_column(array_values((array)$movie->subtitles), "id");
+$ids = $movie->subtitles;
 foreach ($ids as $id) {
     $sql = "INSERT INTO movie_subtitle (`movie_id`, `subtitle_id`) VALUES (?, ?);";
     $query = $conn->prepare($sql);
@@ -88,7 +88,7 @@ $query->bind_param("i", $movie->id);
 $query->execute();
 
 // Insert new languages
-$ids = array_column(array_values((array)$movie->languages), "id");
+$ids = $movie->languages;
 foreach ($ids as $id) {
     $sql = "INSERT INTO movie_language (`movie_id`, `language_id`) VALUES (?, ?);";
     $query = $conn->prepare($sql);
@@ -104,7 +104,7 @@ $query->bind_param("i", $movie->id);
 $query->execute();
 
 // Insert new genres
-$ids = array_column(array_values((array)$movie->genres), "id");
+$ids = $movie->genres;
 foreach ($ids as $id) {
     $sql = "INSERT INTO movie_genre (`movie_id`, `genre_id`) VALUES (?, ?);";
     $query = $conn->prepare($sql);
@@ -120,7 +120,7 @@ $query->bind_param("i", $movie->id);
 $query->execute();
 
 // Insert new formats
-$ids = array_column(array_values((array)$movie->formats), "id");
+$ids = $movie->formats;
 foreach ($ids as $id) {
     $sql = "INSERT INTO movie_format (`movie_id`, `format_id`) VALUES (?, ?);";
     $query = $conn->prepare($sql);
