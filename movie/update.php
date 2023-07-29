@@ -64,35 +64,67 @@ $query = $conn->prepare($sql);
 $query->bind_param("ssssiissi", $movie->name, $movie->description, $movie->poster, $movie->trailer, $movie->age_limit, $movie->duration, $movie->country, $movie->director, $movie->id);
 $query->execute();
 
+
+// Delete old subtitles
+$sql = "DELETE FROM movie_subtitle WHERE `movie_id` = ?";
+$query = $conn->prepare($sql);
+$query->bind_param("i", $movie->id);
+$query->execute();
+
+// Insert new subtitles
 $ids = array_column(array_values((array)$movie->subtitles), "id");
 foreach ($ids as $id) {
-    $sql = "UPDATE movie_subtitle SET subtitle_id = ? WHERE `movie_id` = ?;";
+    $sql = "INSERT INTO movie_subtitle (`movie_id`, `subtitle_id`) VALUES (?, ?);";
     $query = $conn->prepare($sql);
-    $query->bind_param("ii", $id, $movie->id);
+    $query->bind_param("ii", $movie->id, $id);
     $query->execute();
 }
 
+
+// Delete old languages
+$sql = "DELETE FROM movie_language WHERE `movie_id` = ?";
+$query = $conn->prepare($sql);
+$query->bind_param("i", $movie->id);
+$query->execute();
+
+// Insert new languages
 $ids = array_column(array_values((array)$movie->languages), "id");
 foreach ($ids as $id) {
-    $sql = "UPDATE movie_language SET language_id = ? WHERE `movie_id` = ?;";
+    $sql = "INSERT INTO movie_language (`movie_id`, `language_id`) VALUES (?, ?);";
     $query = $conn->prepare($sql);
-    $query->bind_param("ii", $id, $movie->id);
+    $query->bind_param("ii", $movie->id, $id);
     $query->execute();
 }
 
+
+// Delete old genres
+$sql = "DELETE FROM movie_genre WHERE `movie_id` = ?";
+$query = $conn->prepare($sql);
+$query->bind_param("i", $movie->id);
+$query->execute();
+
+// Insert new genres
 $ids = array_column(array_values((array)$movie->genres), "id");
 foreach ($ids as $id) {
-    $sql = "UPDATE movie_genre SET genre_id = ? WHERE `movie_id` = ?;";
+    $sql = "INSERT INTO movie_genre (`movie_id`, `genre_id`) VALUES (?, ?);";
     $query = $conn->prepare($sql);
-    $query->bind_param("ii", $id, $movie->id);
+    $query->bind_param("ii", $movie->id, $id);
     $query->execute();
 }
 
+
+// Delete old formats
+$sql = "DELETE FROM movie_format WHERE `movie_id` = ?";
+$query = $conn->prepare($sql);
+$query->bind_param("i", $movie->id);
+$query->execute();
+
+// Insert new formats
 $ids = array_column(array_values((array)$movie->formats), "id");
 foreach ($ids as $id) {
-    $sql = "UPDATE movie_format SET format_id = ? WHERE `movie_id` = ?;";
+    $sql = "INSERT INTO movie_format (`movie_id`, `format_id`) VALUES (?, ?);";
     $query = $conn->prepare($sql);
-    $query->bind_param("ii", $id, $movie->id);
+    $query->bind_param("ii", $movie->id, $id);
     $query->execute();
 }
 
