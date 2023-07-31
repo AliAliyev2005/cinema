@@ -31,7 +31,7 @@ if (empty($user->password)) {
 
 $sql = "INSERT INTO `users` (`name`, `email`, `password`, `surname`) VALUES (?, ?, ?, ?)";
 $query = $conn->prepare($sql);
-$query->bind_param("ssss", $user->name, $user->email, $user->password, $user->surname);
+$query->bind_param("ssss", $user->name, $user->email, md5($user->password), $user->surname);
 
 if ($query->execute() === TRUE) {
     $response->code = 0;
